@@ -48,15 +48,18 @@ function App() {
 
 	function removeTodoAtIndex(i) {
 		if (i === 0 && todos.length === 1) {
-			setTodos([])
-		} else {
-			setTodos(todos => todos.slice(0, i).concat(todos.slice(i + 1, todos.length)));
-			if (i - 1) {
-				setTimeout(() => {
-					document.forms[0].elements[i - 1].focus();
-				}, 0);
-			}
+			setTodos([]);
+			return;
 		}
+		setTodos(todos => todos.slice(0, i).concat(todos.slice(i + 1, todos.length)));
+
+		setTimeout(() => {
+			if (i === 0) {
+				document.forms[0].elements[i].focus()
+			} else {
+				document.forms[0].elements[i - 1].focus()
+			}
+		}, 0);
 
 	}
 
